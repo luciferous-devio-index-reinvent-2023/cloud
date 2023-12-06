@@ -1,9 +1,9 @@
-import json
 from dataclasses import asdict, is_dataclass
 from logging import DEBUG
 from typing import Type, Union
 
 from aws_lambda_powertools import Logger
+from aws_lambda_powertools.utilities.data_classes.common import DictWrapper
 
 TypeJsonlable = Union[int, float, str, bool, None, list, dict]
 
@@ -14,6 +14,8 @@ def custom_json_default(value: object) -> TypeJsonlable:
             return str(value)
         else:
             return asdict(value)
+    if isinstance(value, DictWrapper):
+        return value.raw_event
     try:
         return {"type": str(type(value)), "value": str(value)}
     except Exception as e:
