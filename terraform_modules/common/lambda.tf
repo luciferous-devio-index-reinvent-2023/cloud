@@ -10,7 +10,8 @@ module "error_notifier" {
   function_identifier = "error_notifier"
   handler             = "handlers/error_notifier.handler"
   environment_variables = {
-    SNS_TOPIC_ERROR = aws_sns_topic.error_topic.arn
+    // SNS_TOPIC_ERROR = aws_sns_topic.error_topic.arn
+    SNS_TOPIC_ERROR = aws_s3_bucket.data.bucket
   }
 
   system_name      = var.system_name
