@@ -9,7 +9,7 @@ terraform {
 }
 
 module "common" {
-  source = "terraform_modules/common"
+  source = "./terraform_modules/common"
 
   notion_token = var.notion_token
 }
