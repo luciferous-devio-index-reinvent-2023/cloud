@@ -1,0 +1,28 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.6.4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.ROLE_ARN_GITHUB_ACTIONS_ADMINISTRATOR }}
+          aws-region: ap-northeast-1
+      - run: terraform init
+      - run: terraform apply -auto-approve
+        env:
+          TF_VAR_notion_token: ${{ secrets.NOTION_TOKEN }}
+      - run: terraform output
