@@ -19,7 +19,6 @@ module "error_notifier" {
 
 resource "aws_lambda_permission" "error_notifier" {
   action        = "lambda:InvokeFunction"
-  function_name = module.error_notifier.function_name
-  qualifier     = module.error_notifier.function_alias_arn
+  function_name = module.error_notifier.function_alias_arn
   principal     = "logs.amazonaws.com"
 }
