@@ -19,3 +19,7 @@ variable "notion_token" {
   nullable  = false
   sensitive = true
 }
+
+output "sns_error_topic_url" {
+  value = module.common.sns_topic_error_url
+}

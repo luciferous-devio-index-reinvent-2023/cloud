@@ -1,0 +1,1 @@
+resource "aws_sns_topic" "error_topic" {}

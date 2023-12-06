@@ -1,7 +1,7 @@
 data "aws_iam_policy_document" "assume_role_policy_lambda" {
   statement {
-    sid = "LambdaAssumeRolePolicy"
-    effect = "Allow"
+    sid     = "LambdaAssumeRolePolicy"
+    effect  = "Allow"
     actions = ["sts:AssumeRole"]
     principals {
       identifiers = ["lambda.amazonaws.com"]
@@ -21,7 +21,7 @@ resource "aws_iam_role_policy_attachment" "lambda_basic" {
 
 data "aws_iam_policy_document" "lambda" {
   statement {
-    sid = "SsmGetParameter"
+    sid    = "SsmGetParameter"
     effect = "Allow"
     actions = [
       "ssm:GetParameter",
@@ -32,13 +32,13 @@ data "aws_iam_policy_document" "lambda" {
     ]
   }
   statement {
-    sid = "kmsDecrypt"
-    effect = "Allow"
-    actions = ["kms:Decrypt"]
+    sid       = "kmsDecrypt"
+    effect    = "Allow"
+    actions   = ["kms:Decrypt"]
     resources = ["*"]
   }
   statement {
-    sid = "S3Access"
+    sid    = "S3Access"
     effect = "Allow"
     actions = [
       "s3:GetObject",
@@ -49,6 +49,12 @@ data "aws_iam_policy_document" "lambda" {
       aws_s3_bucket.data.arn,
       "${aws_s3_bucket.data.arn}/*"
     ]
+  }
+  statement {
+    sid       = "SnsPublish"
+    effect    = "Allow"
+    actions   = ["sns:Publish"]
+    resources = [aws_sns_topic.error_topic.arn]
   }
 }
 
