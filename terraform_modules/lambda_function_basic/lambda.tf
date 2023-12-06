@@ -1,5 +1,5 @@
 resource "aws_lambda_function" "function" {
-  function_name    = "${var.system_name}-${var.function_identifier}"
+  function_name    = replace("${var.system_name}-${var.function_identifier}", "_", "-")
   role             = var.role_arn
   runtime          = "python3.11"
   architectures    = ["arm64"]
