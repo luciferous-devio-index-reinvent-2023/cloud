@@ -6,6 +6,23 @@ terraform {
     key            = "cloud/cloud.tfstate"
     dynamodb_table = "luciferous-devio-index-2023-prepare-LockTable-Y76P2668G3P9"
   }
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.26"
+    }
+  }
+}
+
+provider "aws" {
+  region = var.region
+
+  default_tags {
+    tags = {
+      SystemName = var.system_name
+    }
+  }
 }
 
 module "common" {
@@ -13,6 +30,8 @@ module "common" {
 
   notion_token               = var.notion_token
   cloudflare_deploy_hook_url = var.cloudflare_deploy_hook_url
+  region                     = var.region
+  system_name                = var.system_name
 }
 
 variable "notion_token" {
@@ -25,6 +44,18 @@ variable "cloudflare_deploy_hook_url" {
   type      = string
   nullable  = false
   sensitive = true
+}
+
+variable "region" {
+  type     = string
+  nullable = false
+  default  = "ap-northeast-1"
+}
+
+variable "system_name" {
+  type     = string
+  nullable = false
+  default  = "luciferous-devio-index-reinvent-2023"
 }
 
 output "sns_error_topic_url" {

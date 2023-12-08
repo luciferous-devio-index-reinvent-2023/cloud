@@ -9,7 +9,7 @@ resource "aws_lambda_function" "function" {
   role             = var.role_arn
   runtime          = "python3.11"
   architectures    = ["arm64"]
-  handler          = "${var.function_identifier}.${var.handler_function}"
+  handler          = "${var.function_identifier}.${var.handler}"
   memory_size      = var.memory_size
   timeout          = var.timeout
   filename         = data.archive_file.package.output_path

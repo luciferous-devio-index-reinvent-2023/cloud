@@ -27,6 +27,11 @@ variable "region" {
   nullable = false
 }
 
+variable "subscription_destination_arn" {
+  type     = string
+  nullable = false
+}
+
 variable "environment_variables" {
   type     = map(string)
   nullable = true
@@ -64,21 +69,21 @@ variable "layers" {
 }
 
 output "function_name" {
-  value = aws_lambda_function.function.function_name
+  value = module.function.function_name
 }
 
 output "function_arn" {
-  value = aws_lambda_function.function.arn
+  value = module.function.function_arn
 }
 
 output "function_alias_name" {
-  value = aws_lambda_alias.alias.name
+  value = module.function.function_alias_name
 }
 
 output "function_alias_arn" {
-  value = aws_lambda_alias.alias.arn
+  value = module.function.function_alias_arn
 }
 
 output "log_group_name" {
-  value = aws_cloudwatch_log_group.function.name
+  value = module.function.log_group_name
 }

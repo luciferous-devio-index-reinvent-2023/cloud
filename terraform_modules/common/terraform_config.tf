@@ -7,17 +7,13 @@ terraform {
   }
 }
 
-provider "aws" {
-  region = var.region
-
-  default_tags {
-    tags = {
-      SystemName = var.system_name
-    }
-  }
+variable "notion_token" {
+  type      = string
+  nullable  = false
+  sensitive = true
 }
 
-variable "notion_token" {
+variable "cloudflare_deploy_hook_url" {
   type      = string
   nullable  = false
   sensitive = true
@@ -26,19 +22,11 @@ variable "notion_token" {
 variable "region" {
   type     = string
   nullable = false
-  default  = "ap-northeast-1"
 }
 
 variable "system_name" {
   type     = string
   nullable = false
-  default  = "luciferous-devio-index-reinvent-2023"
-}
-
-variable "cloudflare_deploy_hook_url" {
-  type      = string
-  nullable  = false
-  sensitive = true
 }
 
 output "sns_topic_error_url" {

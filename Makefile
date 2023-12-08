@@ -21,10 +21,15 @@ terraform-fmt-module-lambda-function-basic:
 	cd terraform_modules/lambda_function_basic && \
 	terraform fmt
 
+terraform-fmt-module-lambda-function:
+	cd terraform_modules/lambda_function && \
+	terraform fmt
+
 terraform-fmt: \
 	terraform-fmt-root \
 	terraform-fmt-module-common \
-	terraform-fmt-module-lambda-function-basic
+	terraform-fmt-module-lambda-function-basic \
+	terraform-fmt-module-lambda-function
 
 format: \
 	black \
@@ -39,5 +44,6 @@ format: \
 	terraform-fmt-root \
 	terraform-fmt-module-common \
 	terraform-fmt-module-lambda-function-basic \
+	terraform-fmt-module-lambda-function \
 	terraform-fmt \
 	format

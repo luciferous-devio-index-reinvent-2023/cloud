@@ -36,3 +36,21 @@ resource "aws_lambda_permission" "error_notifier" {
   function_name = module.error_notifier.function_arn
   principal     = "logs.amazonaws.com"
 }
+
+module "check_posts" {
+  source = "../lambda_function"
+
+  function_identifier = "check_posts"
+  memory_size         = 512
+  timeout             = 900
+
+  environment_variables = {
+    SNS_TOPIC_ERROR = aws_sns_topic.error_topic.arn
+  }
+
+  layers                       = [aws_lambda_layer_version.common.arn]
+  system_name                  = var.system_name
+  region                       = var.region
+  role_arn                     = aws_iam_role.lambda.arn
+  subscription_destination_arn = module.error_notifier.function_arn
+}

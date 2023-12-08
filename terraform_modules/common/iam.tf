@@ -28,7 +28,8 @@ data "aws_iam_policy_document" "lambda" {
       "ssm:GetParameters"
     ]
     resources = [
-      aws_ssm_parameter.notion_token.arn
+      aws_ssm_parameter.notion_token.arn,
+      aws_ssm_parameter.cloudflare_deploy_hook_url.arn,
     ]
   }
   statement {
