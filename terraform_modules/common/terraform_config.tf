@@ -35,6 +35,12 @@ variable "system_name" {
   default  = "luciferous-devio-index-reinvent-2023"
 }
 
+variable "cloudflare_deploy_hook_url" {
+  type      = string
+  nullable  = false
+  sensitive = true
+}
+
 output "sns_topic_error_url" {
   value = "https://${var.region}.console.aws.amazon.com/sns/v3/home?region=${var.region}#/topic/${aws_sns_topic.error_topic.arn}"
 }

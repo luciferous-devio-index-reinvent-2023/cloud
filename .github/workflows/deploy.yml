@@ -25,4 +25,5 @@ jobs:
       - run: terraform apply -auto-approve
         env:
           TF_VAR_notion_token: ${{ secrets.NOTION_TOKEN }}
+          TF_VAR_cloudflare_deploy_hook_url: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK_URL }}
       - run: terraform output

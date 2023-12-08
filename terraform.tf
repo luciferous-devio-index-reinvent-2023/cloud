@@ -11,10 +11,17 @@ terraform {
 module "common" {
   source = "./terraform_modules/common"
 
-  notion_token = var.notion_token
+  notion_token               = var.notion_token
+  cloudflare_deploy_hook_url = var.cloudflare_deploy_hook_url
 }
 
 variable "notion_token" {
+  type      = string
+  nullable  = false
+  sensitive = true
+}
+
+variable "cloudflare_deploy_hook_url" {
   type      = string
   nullable  = false
   sensitive = true
