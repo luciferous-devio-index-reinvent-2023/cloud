@@ -144,7 +144,6 @@ def create_message(*, event: CloudWatchLogsEvent, region: str) -> Message:
             f"\nMessage  :\n",
         ]
         try:
-            lines.append(json.dumps(json.loads(log_event.message), indent=2, ensure_ascii=False).replace(" ", "　"))
             text = json.dumps(json.loads(log_event.message), indent=2, ensure_ascii=False)
             for line in text.split("\n"):
                 i = 0
