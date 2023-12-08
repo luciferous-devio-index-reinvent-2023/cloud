@@ -41,7 +41,7 @@ module "check_posts" {
   source = "../lambda_function"
 
   function_identifier = "check_posts"
-  memory_size         = 128
+  memory_size         = 512
   timeout             = 900
 
   environment_variables = {
