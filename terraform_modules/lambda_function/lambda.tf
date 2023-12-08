@@ -22,7 +22,7 @@ resource "aws_cloudwatch_log_subscription_filter" "error_log" {
 
 resource "aws_cloudwatch_log_subscription_filter" "unexpected_exit" {
   destination_arn = var.subscription_destination_arn
-  filter_pattern  = "?\"Task timed out\" ?\"exited with error\" ?\"Runtime.ImportModuleError\" ?\"ModuleNotFoundError\""
+  filter_pattern  = "?\"Task timed out\" ?\"Runtime exited with error\" ?\"Runtime.ImportModuleError\""
   log_group_name  = module.function.log_group_name
   name            = "unexpected-exit"
 }
