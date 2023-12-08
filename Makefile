@@ -4,7 +4,7 @@ black:
 	poetry run black src/
 
 isort:
-	poetry run isort src/
+	poetry run isort --profile black src/
 
 pyright:
 	PYTHONPATH=src/layers/common/python \
@@ -32,10 +32,10 @@ terraform-fmt: \
 	terraform-fmt-module-lambda-function
 
 format: \
-	black \
+	terraform-fmt \
 	isort \
-	pyright \
-	terraform-fmt
+	black \
+	pyright
 
 .PHONY: \
 	black \
