@@ -121,8 +121,9 @@ def create_message(*, event: CloudWatchLogsEvent, region: str) -> Message:
         f'Function : "{function_name}"',
         f'LogGroup : "{decompressed.log_group}"',
         f'LogStream: "{decompressed.log_stream}"',
-        f'Date(Now): "{dt_now}"' f"Lambda   :",
-        f"    {url_lambda}",
+        f'Date(Now): "{dt_now}"',
+        f"Lambda   :\n",
+        f"　{url_lambda}",
     ]
     for log_event in decompressed.log_events:
         url_cw = create_url_cw_logs(
@@ -138,9 +139,9 @@ def create_message(*, event: CloudWatchLogsEvent, region: str) -> Message:
             "",
             f'Timestamp: "{log_event.timestamp}"',
             f'Date     : "{datetime.fromtimestamp(timestamp=(log_event.timestamp / 1000), tz=jst)}"',
-            f"CW URL   :",
-            f"    {url_cw}",
-            f"Message  :",
+            f"CW URL   :\n",
+            f"　{url_cw}",
+            f"\nMessage  :\n",
             log_event.message,
         ]
 
