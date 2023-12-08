@@ -144,7 +144,7 @@ def create_message(*, event: CloudWatchLogsEvent, region: str) -> Message:
             f"\nMessage  :\n",
         ]
         try:
-            lines.append(json.dumps(json.loads(log_event.message), indent=2, ensure_ascii=False))
+            lines.append(json.dumps(json.loads(log_event.message), indent=2, ensure_ascii=False).replace(" ", "　"))
         except JSONDecodeError:
             lines.append(log_event.message)
 
