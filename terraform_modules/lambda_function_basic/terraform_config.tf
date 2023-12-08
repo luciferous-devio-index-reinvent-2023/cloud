@@ -32,21 +32,6 @@ variable "role_arn" {
   nullable = false
 }
 
-variable "handler" {
-  type     = string
-  nullable = false
-}
-
-variable "filename" {
-  type     = string
-  nullable = false
-}
-
-variable "source_code_hash" {
-  type     = string
-  nullable = false
-}
-
 variable "region" {
   type     = string
   nullable = false
@@ -74,6 +59,18 @@ variable "timeout" {
   type     = number
   nullable = false
   default  = 120
+}
+
+variable "handler_function" {
+  type     = string
+  nullable = false
+  default  = "handler"
+}
+
+variable "layers" {
+  type     = list(string)
+  nullable = false
+  default  = []
 }
 
 output "function_name" {

@@ -3,7 +3,6 @@ from dataclasses import dataclass
 from aws_lambda_powertools.utilities.data_classes import (CloudWatchLogsEvent,
                                                           event_source)
 from aws_lambda_powertools.utilities.typing import LambdaContext
-
 from common.load_environments import load_environments
 from common.logger import create_logger, logging_handler_exception
 

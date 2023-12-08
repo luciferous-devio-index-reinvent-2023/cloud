@@ -6,13 +6,38 @@ black:
 isort:
 	poetry run isort src/
 
-lint:
+pyright:
+	PYTHONPATH=src/layers/common/python \
 	poetry run pyright src/
 
-format: black isort lint
+terraform-fmt-root:
+	terraform fmt
+
+terraform-fmt-module-common:
+	cd terraform_modules/common && \
+	terraform fmt
+
+terraform-fmt-module-lambda-function-basic:
+	cd terraform_modules/lambda_function_basic && \
+	terraform fmt
+
+terraform-fmt: \
+	terraform-fmt-root \
+	terraform-fmt-module-common \
+	terraform-fmt-module-lambda-function-basic
+
+format: \
+	black \
+	isort \
+	pyright \
+	terraform-fmt
 
 .PHONY: \
 	black \
 	isort \
-	lint \
+	pyright \
+	terraform-fmt-root \
+	terraform-fmt-module-common \
+	terraform-fmt-module-lambda-function-basic \
+	terraform-fmt \
 	format

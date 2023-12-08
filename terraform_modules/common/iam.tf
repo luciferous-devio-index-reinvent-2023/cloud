@@ -59,7 +59,7 @@ data "aws_iam_policy_document" "lambda" {
 }
 
 resource "aws_iam_role_policy" "lambda" {
-  name = "lambda_policy"
+  name   = "lambda_policy"
   policy = data.aws_iam_policy_document.lambda.json
   role   = aws_iam_role.lambda.id
 }
