@@ -142,8 +142,11 @@ def create_message(*, event: CloudWatchLogsEvent, region: str) -> Message:
             f"CW URL   :\n",
             f"　{url_cw}",
             f"\nMessage  :\n",
-            log_event.message,
         ]
+        try:
+            lines.append(json.dumps(json.loads(log_event.message), indent=2, ensure_ascii=False))
+        except JSONDecodeError:
+            lines.append(log_event.message)
 
     return Message(
         message="\n".join(lines), title=f"Raise Error ({dt_now}) {function_name}"
