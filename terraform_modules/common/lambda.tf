@@ -49,7 +49,8 @@ resource "aws_cloudwatch_metric_alarm" "error_notifier" {
 
 resource "aws_lambda_permission" "error_notifier" {
   action        = "lambda:InvokeFunction"
-  function_name = module.error_notifier.function_alias_arn
+  function_name = module.error_notifier.function_arn
+  qualifier     = module.error_notifier.function_alias_name
   principal     = "logs.amazonaws.com"
 }
 
@@ -80,7 +81,7 @@ module "check_posts" {
 resource "aws_cloudwatch_event_rule" "check_posts" {
   name_prefix         = "check-posts-"
   description         = module.check_posts.function_name
-  is_enabled          = true
+  state               = "ENABLED"
   schedule_expression = "cron(0 16 * * ? *)"
 }
 
