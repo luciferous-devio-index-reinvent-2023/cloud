@@ -109,6 +109,7 @@ class DevioPost:
     author_name: str
     author_url: str
     author_avatar: str
+    thumbnail: str
 
     @logging_function(logger)
     def __init__(self, data: dict, store_authors: StoreAuthors):
@@ -122,6 +123,7 @@ class DevioPost:
         self.author_name = author.name
         self.author_url = author.link
         self.author_avatar = author.avatar
+        self.thumbnail = data["jetpack_featured_media_url"]
 
 
 @dataclass
@@ -355,6 +357,7 @@ def exec_insert(*, devio_post: DevioPost, notion_database_id: str, notion_token:
                     "AuthorUrl": {"url": devio_post.author_url},
                     "AuthorAvatar": {"url": devio_post.author_avatar},
                     "PostId": {"number": devio_post.id},
+                    "Thumbnail": {"url": devio_post.thumbnail},
                 },
             }
         ).encode(),
