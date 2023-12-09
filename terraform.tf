@@ -29,6 +29,7 @@ module "common" {
   source = "./terraform_modules/common"
 
   notion_token               = var.notion_token
+  notion_database_id         = var.notion_database_id
   cloudflare_deploy_hook_url = var.cloudflare_deploy_hook_url
   region                     = var.region
   system_name                = var.system_name
@@ -38,6 +39,11 @@ variable "notion_token" {
   type      = string
   nullable  = false
   sensitive = true
+}
+
+variable "notion_database_id" {
+  type     = string
+  nullable = false
 }
 
 variable "cloudflare_deploy_hook_url" {

@@ -13,6 +13,11 @@ variable "notion_token" {
   sensitive = true
 }
 
+variable "notion_database_id" {
+  type     = string
+  nullable = false
+}
+
 variable "cloudflare_deploy_hook_url" {
   type      = string
   nullable  = false

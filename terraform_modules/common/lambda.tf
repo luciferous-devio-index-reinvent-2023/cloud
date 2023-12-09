@@ -45,7 +45,11 @@ module "check_posts" {
   timeout             = 900
 
   environment_variables = {
-    SNS_TOPIC_ERROR = aws_sns_topic.error_topic.arn
+    NOTION_DATABASE_ID                        = var.notion_database_id
+    SSM_PARAM_NAME_NOTION_TOKEN               = aws_ssm_parameter.notion_token.name
+    SSM_PARAM_NAME_CLOUDFLARE_DEPLOY_HOOK_URL = aws_ssm_parameter.cloudflare_deploy_hook_url.name
+    S3_BUCKET_DATA                            = aws_s3_bucket.data.id
+    S3_KEY_AUTHORS                            = "authors.json.gz"
   }
 
   layers                       = [aws_lambda_layer_version.common.arn]
