@@ -58,5 +58,5 @@ module "check_posts" {
   system_name                  = var.system_name
   region                       = var.region
   role_arn                     = aws_iam_role.lambda.arn
-  subscription_destination_arn = module.error_notifier.function_arn
+  subscription_destination_arn = module.error_notifier.function_alias_arn
 }
