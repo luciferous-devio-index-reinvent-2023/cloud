@@ -76,3 +76,22 @@ module "check_posts" {
   role_arn                     = aws_iam_role.lambda.arn
   subscription_destination_arn = module.error_notifier.function_alias_arn
 }
+
+resource "aws_cloudwatch_event_rule" "check_posts" {
+  name_prefix         = module.check_posts.function_name
+  is_enabled          = true
+  schedule_expression = "cron(0 16 * * ? *)"
+}
+
+resource "aws_lambda_permission" "check_posts" {
+  action        = "lambda:InvokeFunction"
+  function_name = module.error_notifier.function_alias_arn
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.check_posts.arn
+}
+
+resource "aws_cloudwatch_event_target" "check_posts" {
+  arn  = module.check_posts.function_alias_arn
+  rule = aws_cloudwatch_event_rule.check_posts.name
+}
+
