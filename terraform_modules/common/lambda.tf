@@ -78,7 +78,8 @@ module "check_posts" {
 }
 
 resource "aws_cloudwatch_event_rule" "check_posts" {
-  name_prefix         = module.check_posts.function_name
+  name_prefix         = "check-posts-"
+  description         = module.check_posts.function_name
   is_enabled          = true
   schedule_expression = "cron(0 16 * * ? *)"
 }
