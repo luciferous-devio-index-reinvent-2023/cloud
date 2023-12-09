@@ -213,6 +213,9 @@ def handler(
                 notion_database_id=env.notion_database_id,
                 notion_token=params.notion_token,
             )
+    elif is_exist_not_edited(notion_items=notion_items):
+        logger.info("exits not edited")
+        notify_not_edit_post(sns_topic_arn=env.sns_topic_error, client=client_sns)
 
 
 @logging_function(logger)
@@ -373,3 +376,9 @@ def notify_not_edit_post(*, sns_topic_arn: str, client):
         Message="\n".join(lines),
         Subject=f"編集していない投稿があります！ ({datetime.now(JST)})",
     )
+
+
+@logging_function(logger)
+def is_exist_not_edited(*, notion_items: List[NotionItem]) -> bool:
+    union = set([x.edited for x in notion_items])
+    return None in union
