@@ -87,7 +87,8 @@ resource "aws_cloudwatch_event_rule" "check_posts" {
 
 resource "aws_lambda_permission" "check_posts" {
   action        = "lambda:InvokeFunction"
-  function_name = module.error_notifier.function_alias_arn
+  function_name = module.check_posts.function_arn
+  qualifier     = module.check_posts.function_alias_name
   principal     = "events.amazonaws.com"
   source_arn    = aws_cloudwatch_event_rule.check_posts.arn
 }
