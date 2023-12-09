@@ -31,6 +31,22 @@ module "error_notifier" {
   role_arn    = aws_iam_role.lambda.arn
 }
 
+resource "aws_cloudwatch_metric_alarm" "error_notifier" {
+  alarm_name          = module.error_notifier.function_name
+  alarm_actions       = [aws_sns_topic.error_topic.arn]
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = 1
+  datapoints_to_alarm = 1
+  dimensions = {
+    FunctionName = module.error_notifier.function_name
+  }
+  metric_name        = "Errors"
+  namespace          = "AWS/Lambda"
+  period             = 60
+  statistic          = "Sum"
+  treat_missing_data = "notBreaching"
+}
+
 resource "aws_lambda_permission" "error_notifier" {
   action        = "lambda:InvokeFunction"
   function_name = module.error_notifier.function_alias_arn
