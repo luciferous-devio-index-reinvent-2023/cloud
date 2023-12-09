@@ -50,6 +50,8 @@ module "check_posts" {
     SSM_PARAM_NAME_CLOUDFLARE_DEPLOY_HOOK_URL = aws_ssm_parameter.cloudflare_deploy_hook_url.name
     S3_BUCKET_DATA                            = aws_s3_bucket.data.id
     S3_KEY_AUTHORS                            = "authors.json.gz"
+    S3_KEY_EDITED                             = "edited.json"
+    SNS_TOPIC_ERROR                           = aws_sns_topic.error_topic.arn
   }
 
   layers                       = [aws_lambda_layer_version.common.arn]
