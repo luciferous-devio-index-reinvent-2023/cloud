@@ -383,5 +383,4 @@ def notify_not_edit_post(*, sns_topic_arn: str, client):
 
 @logging_function(logger)
 def is_exist_not_edited(*, notion_items: List[NotionItem]) -> bool:
-    union = set([x.edited for x in notion_items])
-    return None in union
+    return len(notion_items) != len([x for x in notion_items if x.edited])
