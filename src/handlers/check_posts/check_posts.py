@@ -105,6 +105,7 @@ class DevioPost:
     url: str
     date: str
     raw_date: str
+    author_id: int
     author_name: str
     author_url: str
     author_avatar: str
@@ -116,8 +117,8 @@ class DevioPost:
         self.url = data["link"]
         self.raw_date = data["date"]
         self.date = self.raw_date[:10].replace("-", ".")
-        id_author: int = data["author"]
-        author = store_authors.get_author(id_author=id_author)
+        self.author_id = data["author"]
+        author = store_authors.get_author(id_author=self.author_id)
         self.author_name = author.name
         self.author_url = author.link
         self.author_avatar = author.avatar
@@ -347,14 +348,13 @@ def exec_insert(*, devio_post: DevioPost, notion_database_id: str, notion_token:
                     "RawDate": {
                         "rich_text": [{"text": {"content": devio_post.raw_date}}]
                     },
+                    "AuthorId": {"number": devio_post.author_id},
                     "AuthorName": {
                         "rich_text": [{"text": {"content": devio_post.author_name}}]
                     },
                     "AuthorUrl": {"url": devio_post.author_url},
                     "AuthorAvatar": {"url": devio_post.author_avatar},
-                    "PostId": {
-                        "number": devio_post.id
-                    }
+                    "PostId": {"number": devio_post.id},
                 },
             }
         ).encode(),
