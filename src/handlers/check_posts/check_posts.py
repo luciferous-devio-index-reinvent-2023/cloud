@@ -220,6 +220,6 @@ def query_notion_database(*, notion_database_id: str, notion_token: str) -> Set[
         resp = sec1_http_client(req)
         data = json.load(resp)
         token = data.get("next_cursor")
-        result |= set([x["properties"]["PostId"] for x in data["results"]])
+        result |= set([x["properties"]["PostId"]["number"] for x in data["results"]])
 
     return result
