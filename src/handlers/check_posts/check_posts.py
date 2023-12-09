@@ -352,6 +352,9 @@ def exec_insert(*, devio_post: DevioPost, notion_database_id: str, notion_token:
                     },
                     "AuthorUrl": {"url": devio_post.author_url},
                     "AuthorAvatar": {"url": devio_post.author_avatar},
+                    "PostId": {
+                        "number": devio_post.id
+                    }
                 },
             }
         ).encode(),
