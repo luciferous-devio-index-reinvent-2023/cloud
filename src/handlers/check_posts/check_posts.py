@@ -126,6 +126,17 @@ def handler(
         is_gz=True,
     )
     devio_posts = get_reinvent_posts(store_authors=store_authors)
+    union_post_id_in_notion = query_notion_database(
+        notion_database_id=env.notion_database_id, notion_token=params.notion_token
+    )
+    logger.info(
+        "data count",
+        data={
+            "authors": len(store_authors.map_authors),
+            "devio_posts": len(devio_posts),
+            "union_post_id_in_notion": len(union_post_id_in_notion),
+        },
+    )
 
     compressed_authors, is_flush_authors = store_authors.convert_to_json_gz()
     if is_flush_authors:
@@ -188,7 +199,7 @@ def get_reinvent_posts(*, store_authors: StoreAuthors) -> List[DevioPost]:
 
 
 @logging_function(logger)
-def query_notion_database(*, notion_database_id: str) -> Set[int]:
+def query_notion_database(*, notion_database_id: str, notion_token: str) -> Set[int]:
     result: Set[int] = set()
     token: Optional[str] = None
 
@@ -196,5 +207,19 @@ def query_notion_database(*, notion_database_id: str) -> Set[int]:
         payload = {}
         if token is not None:
             payload["start_cursor"] = token
+        req = Request(
+            url=f"https://api.notion.com/v1/databases/{notion_database_id}/query",
+            method="POST",
+            headers={
+                "Content-Type": "application/json",
+                "Notion-Version": "2022-06-28",
+                "Authorization": f"Bearer {notion_token}",
+            },
+            data=json.dumps(payload).encode(),
+        )
+        resp = sec1_http_client(req)
+        data = json.load(resp)
+        token = data.get("next_cursor")
+        result |= set([x["properties"]["PostId"] for x in data["results"]])
 
     return result

@@ -10,6 +10,11 @@ pyright:
 	PYTHONPATH=src/layers/common/python \
 	poetry run pyright src/
 
+python-fmt: \
+	isort \
+	black \
+	pyright
+
 terraform-fmt-root:
 	terraform fmt
 
@@ -33,14 +38,13 @@ terraform-fmt: \
 
 format: \
 	terraform-fmt \
-	isort \
-	black \
-	pyright
+	python-fmt
 
 .PHONY: \
 	black \
 	isort \
 	pyright \
+	python-fmt \
 	terraform-fmt-root \
 	terraform-fmt-module-common \
 	terraform-fmt-module-lambda-function-basic \
