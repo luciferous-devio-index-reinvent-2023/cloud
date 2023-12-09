@@ -14,6 +14,7 @@ resource "aws_lambda_function" "function" {
   timeout          = var.timeout
   filename         = data.archive_file.package.output_path
   source_code_hash = data.archive_file.package.output_base64sha256
+  publish          = true
 
   layers = concat(var.layers, [
     "arn:aws:lambda:${var.region}:017000801446:layer:AWSLambdaPowertoolsPythonV2-Arm64:51"
