@@ -172,7 +172,10 @@ def handler(
             "authors": len(store_authors.map_authors),
             "store_edited": len(store_prev_edited.array_edited),
             "devio_posts": len(devio_posts),
-            "notion_items": len(notion_items),
+            "notion_items": {
+                "all": len(notion_items),
+                "edited": len([x for x in notion_items if x.edited])
+            },
         },
     )
 
