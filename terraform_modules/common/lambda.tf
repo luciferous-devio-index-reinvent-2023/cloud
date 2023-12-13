@@ -82,7 +82,7 @@ resource "aws_cloudwatch_event_rule" "check_posts" {
   name_prefix         = "check-posts-"
   description         = module.check_posts.function_name
   state               = "ENABLED"
-  schedule_expression = "cron(0 16 * * ? *)"
+  schedule_expression = "rate(4 hours)"
 }
 
 resource "aws_lambda_permission" "check_posts" {
