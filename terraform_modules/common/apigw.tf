@@ -39,6 +39,7 @@ resource "aws_apigatewayv2_integration" "api" {
   integration_uri  = module.check_posts.function_arn
 }
 
+/*
 resource "terraform_data" "aaa" {
   input = aws_apigatewayv2_authorizer.type_a.id
 }
@@ -55,3 +56,4 @@ resource "aws_apigatewayv2_route" "api" {
     replace_triggered_by = [terraform_data.aaa.output]
   }
 }
+*/
