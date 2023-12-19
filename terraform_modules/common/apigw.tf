@@ -39,10 +39,18 @@ resource "aws_apigatewayv2_integration" "api" {
   integration_uri  = module.check_posts.function_arn
 }
 
+resource "terraform_data" "aaa" {
+  input = aws_apigatewayv2_authorizer.type_a.id
+}
+
 resource "aws_apigatewayv2_route" "api" {
   api_id             = aws_apigatewayv2_api.api.id
   route_key          = "GET /api/test"
   target             = "integrations/${aws_apigatewayv2_integration.api.id}"
   authorization_type = "JWT"
-  authorizer_id      = aws_apigatewayv2_authorizer.type_a.id
+  authorizer_id      = terraform_data.aaa.output
+
+  lifecycle {
+    replace_triggered_by = []
+  }
 }
