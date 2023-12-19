@@ -44,5 +44,5 @@ resource "aws_apigatewayv2_route" "api" {
   route_key          = "GET /api/test"
   target             = "integrations/${aws_apigatewayv2_integration.api.id}"
   authorization_type = "JWT"
-  authorizer_id      = aws_apigatewayv2_authorizer.type_a.id
+  authorizer_id      = aws_apigatewayv2_authorizer.type_b.id
 }
