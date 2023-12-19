@@ -40,7 +40,7 @@ resource "aws_apigatewayv2_integration" "api" {
 }
 
 resource "terraform_data" "aaa" {
-  input = aws_apigatewayv2_authorizer.type_b.id
+  input = aws_apigatewayv2_authorizer.type_a.id
 }
 
 resource "aws_apigatewayv2_route" "api" {
