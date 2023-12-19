@@ -40,7 +40,7 @@ resource "aws_apigatewayv2_integration" "api" {
 }
 
 resource "terraform_data" "aaa" {
-  input = aws_apigatewayv2_authorizer.type_b.id
+  input = aws_apigatewayv2_authorizer.type_a.id
 }
 
 
@@ -51,9 +51,7 @@ resource "aws_apigatewayv2_route" "api" {
   authorization_type = "JWT"
   authorizer_id      = terraform_data.aaa.output
 
-  /*
   lifecycle {
     replace_triggered_by = [terraform_data.aaa.output]
   }
-  */
 }
