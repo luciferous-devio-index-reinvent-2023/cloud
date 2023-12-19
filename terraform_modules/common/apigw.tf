@@ -51,6 +51,6 @@ resource "aws_apigatewayv2_route" "api" {
   authorizer_id      = terraform_data.aaa.output
 
   lifecycle {
-    replace_triggered_by = []
+    replace_triggered_by = [terraform_data.aaa.output]
   }
 }
