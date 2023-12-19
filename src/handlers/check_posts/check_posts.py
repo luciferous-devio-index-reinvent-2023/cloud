@@ -174,7 +174,7 @@ def handler(
             "devio_posts": len(devio_posts),
             "notion_items": {
                 "all": len(notion_items),
-                "edited": len([x for x in notion_items if x.edited])
+                "edited": len([x for x in notion_items if x.edited]),
             },
         },
     )
