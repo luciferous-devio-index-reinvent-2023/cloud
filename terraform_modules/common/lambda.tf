@@ -81,7 +81,7 @@ module "check_posts" {
 resource "aws_cloudwatch_event_rule" "check_posts" {
   name_prefix         = "check-posts-"
   description         = module.check_posts.function_name
-  state               = "ENABLED"
+  state               = "DISABLED"
   schedule_expression = "rate(4 hours)"
 }
 
